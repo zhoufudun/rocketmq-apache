@@ -26,15 +26,10 @@ import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
 
 public class TagFilterConsumer {
-
     public static void main(String[] args) throws InterruptedException, MQClientException, IOException {
-
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name");
-
         consumer.subscribe("TagFilterTest", "TagA || TagC");
-
         consumer.registerMessageListener(new MessageListenerConcurrently() {
-
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                 ConsumeConcurrentlyContext context) {
@@ -42,9 +37,7 @@ public class TagFilterConsumer {
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
-
         consumer.start();
-
         System.out.printf("Consumer Started.%n");
     }
 }

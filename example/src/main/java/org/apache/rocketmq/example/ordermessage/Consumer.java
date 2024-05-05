@@ -30,14 +30,10 @@ public class Consumer {
 
     public static void main(String[] args) throws MQClientException {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("please_rename_unique_group_name_3");
-
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
-
         consumer.subscribe("TopicTest", "TagA || TagC || TagD");
-
         consumer.registerMessageListener(new MessageListenerOrderly() {
             AtomicLong consumeTimes = new AtomicLong(0);
-
             @Override
             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
                 context.setAutoCommit(true);
@@ -49,13 +45,10 @@ public class Consumer {
                     context.setSuspendCurrentQueueTimeMillis(3000);
                     return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
                 }
-
                 return ConsumeOrderlyStatus.SUCCESS;
             }
         });
-
         consumer.start();
         System.out.printf("Consumer Started.%n");
     }
-
 }
